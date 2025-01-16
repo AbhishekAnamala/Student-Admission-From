@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admission Form</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Adikavi Nannaya University MSN Campus</h1>
+  </header>
+  
+  <h1 class="admission-form-heading">Admission Form</h1>
+  
+  <form id="admissionForm" action="/submit" method="POST" enctype="multipart/form-data">
+    <fieldset>
+        <legend>Personal Details</legend>
+        <label for="name">Full Name:</label>
+        <input type="text" id="name" name="name" required><br>
+
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" name="dob" required><br>
+
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender" required>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+        </select><br>
+
+        <label for="aadhaar">Aadhaar Number (12 digits):</label>
+        <input type="number" id="aadhaar" name="aadhaar" oninput="validateAadhaar(this)" required><br>
+
+        <label for="phone">Phone Number (10 digits):</label>
+        <input type="number" id="phone" name="phone" maxlength="10" minlength="10" required><br>
+
+        <label for="email">Email Address:</label>
+        <input type="email" id="email" name="email" required><br>
+
+        <label for="photo">Upload Photo:</label>
+        <input type="file" id="photo" name="photo" accept="image/*" required><br>
+    </fieldset>
+
+    <fieldset>
+        <legend>Family Details</legend>
+        <label for="motherName">Mother's Name:</label>
+        <input type="text" id="motherName" name="motherName" required><br>
+        <label for="fatherName">Father's Name:</label>
+        <input type="text" id="fatherName" name="fatherName" required><br>
+
+        <label for="occupation">Father's Occupation:</label>
+        <input type="text" id="occupation" name="occupation" required><br>
+
+        <label for="income">Family Income (₹):</label>
+        <input type="number" id="income" name="income" required><br>
+    </fieldset>
+
+    <fieldset>
+        <legend>Present Address</legend>
+        <label for="presentAddress.house">House No. (3-5 digits):</label>
+        <input type="text" id="presentAddress.house" name="presentAddress.house" minlength="3" maxlength="5" required><br>
+
+        <label for="presentAddress.street">Street:</label>
+        <input type="text" id="presentAddress.street" name="presentAddress.street" required><br>
+
+        <label for="presentAddress.city">City:</label>
+        <input type="text" id="presentAddress.city" name="presentAddress.city" required><br>
+
+        <label for="presentAddress.mandal">Mandal:</label>
+        <input type="text" id="presentAddress.mandal" name="presentAddress.mandal" required><br>
+
+        <label for="presentAddress.district">District:</label>
+        <input type="text" id="presentAddress.district" name="presentAddress.district" required><br>
+
+        <label for="presentAddress.state">State:</label>
+        <input type="text" id="presentAddress.state" name="presentAddress.state" required><br>
+
+        <label for="presentAddress.pin">PIN Code:</label>
+        <input type="number" id="presentAddress.pin" name="presentAddress.pin" minlength="6" maxlength="6" required><br>
+    </fieldset>
+    <fieldset>
+        <legend>Same as Present Address:</legend>
+        <div id="samebox-container">
+            <label for="sameAsPresent" id="samebox-label"></label>
+            <input type="checkbox" id="sameAsPresent" name="sameAsPresent">
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>Permanent Address</legend>
+       
+
+        <label for="permanentAddress.house">House No. (3-5 digits):</label>
+        <input type="text" id="permanentAddress.house" name="permanentAddress.house" minlength="3" maxlength="5" required><br>
+
+        <label for="permanentAddress.street">Street:</label>
+        <input type="text" id="permanentAddress.street" name="permanentAddress.street" required><br>
+
+        <label for="permanentAddress.city">City:</label>
+        <input type="text" id="permanentAddress.city" name="permanentAddress.city" required><br>
+
+        <label for="permanentAddress.mandal">Mandal:</label>
+        <input type="text" id="permanentAddress.mandal" name="permanentAddress.mandal" required><br>
+
+        <label for="permanentAddress.district">District:</label>
+        <input type="text" id="permanentAddress.district" name="permanentAddress.district" required><br>
+
+        <label for="permanentAddress.state">State:</label>
+        <input type="text" id="permanentAddress.state" name="permanentAddress.state" required><br>
+
+        <label for="permanentAddress.pin">PIN Code:</label>
+        <input type="number" id="permanentAddress.pin" name="permanentAddress.pin" minlength="6" maxlength="6" required><br>
+    </fieldset>
+    <fieldset>
+      <legend>Other Details</legend>
+      <label for="designation">Designation:</label>
+      <select id="designation" name="designation" required>
+          <option value="Regular">Employee</option>
+          <option value="Private">Students</option>
+      </select><br>
+
+      <label for="nationality">Nationality:</label>
+      <input type="text" id="nationality" name="nationality" required><br>
+
+      <label for="religion">Religion:</label>
+      <input type="text" id="religion" name="religion" required><br>
+
+      <label for="caste">Caste:</label>
+      <input type="text" id="caste" name="caste" required><br>
+
+      <label for="subcaste">Subcaste:</label>
+      <input type="text" id="subcaste" name="subcaste" required><br>
+  </fieldset>
+
+  <fieldset>
+      <legend>Qualifying Exam Details</legend>
+      <label for="examname">Exam Name:</label>
+      <input type="text" id="examname" name="examname" required><br>
+
+      <label for="collegename">College Name:</label>
+      <input type="text" id="collegename" name="collegename" required><br>
+
+      <label for="placeperiod">Place and Period:</label>
+      <input type="text" id="placeperiod" name="placeperiod" required><br>
+
+      <label for="privateappearance">Private Appearance:</label>
+    
+      <select id="privateappearance" name="privateappearance" required>
+        <option value="Regular">Employee</option>
+        <option value="Private">Students</option>
+    </select><br>
+
+
+      <label for="universityname">University Name:</label>
+      <input type="text" id="universityname" name="universityname" required><br>
+
+      <label for="yearmonthpassing">Date of Passing:</label>
+      <input type="date" id="yearmonthpassing" name="yearmonthpassing" required><br>
+
+      <label for="registrationnumber">Registration Number:</label>
+      <input type="number" id="registrationnumber" name="registrationnumber" required><br>
+
+      <label for="classgrade">Class/Grade:</label>
+      <input type="text" id="classgrade" name="classgrade" required><br>
+  </fieldset>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    document.getElementById('sameAsPresent').addEventListener('change', function () {
+        const isChecked = this.checked;
+
+        const presentAddressFields = document.querySelectorAll('#presentAddress\\.house, #presentAddress\\.street, #presentAddress\\.city, #presentAddress\\.mandal, #presentAddress\\.district, #presentAddress\\.state, #presentAddress\\.pin');
+        const permanentAddressFields = document.querySelectorAll('#permanentAddress\\.house, #permanentAddress\\.street, #permanentAddress\\.city, #permanentAddress\\.mandal, #permanentAddress\\.district, #permanentAddress\\.state, #permanentAddress\\.pin');
+
+        permanentAddressFields.forEach((field, index) => {
+            field.value = isChecked ? presentAddressFields[index].value : '';
+            field.readOnly = isChecked;
+        });
+    });
+  </script>
+</body>
+</html>
