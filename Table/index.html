@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Data</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        img {
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Admission Form Data</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>S.No.</th>
+                <th>Name</th>
+                <th>Date of Birth</th>
+                <th>Gender</th>
+                <th>Aadhaar</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Mother's Name</th>
+                <th>Father's Name</th>
+                <th>Occupation</th>
+                <th>Family Income</th>
+                <th>Present Address</th>
+                <th>Permanent Address</th>
+                <th>Exam Details</th>
+                <th>Photo</th>
+            </tr>
+        </thead>
+        <tbody id="data-body"></tbody>
+    </table>
+
+    <script>
+        fetch('/api/forms')
+            .then((response) => response.json())
+            .then((forms) => {
+                const tbody = document.getElementById('data-body');
+                forms.forEach((form, index) => {
+                    const row = document.createElement('tr');
+                    const presentAddress = form.presentAddress || {};
+                    const permanentAddress = form.permanentAddress || {};
+                    row.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td>${form.name || 'N/A'}</td>
+                        <td>${form.dob || 'N/A'}</td>
+                        <td>${form.gender || 'N/A'}</td>
+                        <td>${form.aadhaar || 'N/A'}</td>
+                        <td>${form.phone || 'N/A'}</td>
+                        <td>${form.email || 'N/A'}</td>
+                        <td>${form.motherName || 'N/A'}</td>
+                        <td>${form.fatherName || 'N/A'}</td>
+                        <td>${form.occupation || 'N/A'}</td>
+                        <td>${form.income || 'N/A'}</td>
+                        <td>
+                            ${presentAddress.house ? `${presentAddress.house}<br>` : ''}
+                            ${presentAddress.street ? `Street: ${presentAddress.street}<br>` : ''}
+                            ${presentAddress.city ? `${presentAddress.city}, ` : ''}
+                            ${presentAddress.state ? `${presentAddress.state}<br>` : ''}
+                            ${presentAddress.pincode ? `PIN: ${presentAddress.pincode}` : ''}
+                        </td>
+                        <td>
+                            ${permanentAddress.house ? `${permanentAddress.house}<br>` : ''}
+                            ${permanentAddress.street ? `Street: ${permanentAddress.street}<br>` : ''}
+                            ${permanentAddress.city ? `${permanentAddress.city}, ` : ''}
+                            ${permanentAddress.state ? `${permanentAddress.state}<br>` : ''}
+                            ${permanentAddress.pincode ? `PIN: ${permanentAddress.pincode}` : ''}
+                        </td>
+                        <td>${form.examDetails ? `${form.examDetails.examname}, ${form.examDetails.collegename}, ${form.examDetails.universityname}` : 'N/A'}</td>
+                        <td>${form.photo ? `<img src="data:image/jpeg;base64,${form.photo}" alt="Photo">` : 'No Photo'}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            })
+            .catch((error) => console.error('Error fetching data:', error));
+    </script>
+</body>
+</html>
